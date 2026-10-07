@@ -448,7 +448,7 @@ docker run --rm -it -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 
 ## STEP 8: Start server - Go online 
 ### What will happen?
 
-Your website will be available at `http://localhost:8000` (only on your PC locally).
+Your website will be available at `http://localhost:3000` (only on your PC locally).
 
 > **NOTE:** These commands are long because they include all options (`-v`, `-w`, `-p`). In **PHASE 3** you'll learn to simplify them with `docker-compose.yml`. For now, understand each parameter to learn how Docker really works. 
 
@@ -456,19 +456,19 @@ Your website will be available at `http://localhost:8000` (only on your PC local
 
 **Windows (PowerShell):**
 ```powershell
-docker run -p 8000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-docker run -p 8000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
 ```
 
 ### Command explanation
 | Component | What it does |
 |-----------|----------|
 | `docker run` | Runs a container |
-| `-p 8000:8000` | Maps port 8000 PC → port 8000 container |
+| `-p 3000:8000` | Maps port 3000 PC → port 8000 container |
 | `-v "${PWD}:/usr/src/app"` | Syncs your current folder with `/usr/src/app` |
 | `-w /usr/src/app` | Sets work directory |
 | `image_project:v1.0` | Uses the created image |
@@ -476,7 +476,7 @@ docker run -p 8000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v
 | `0.0.0.0:8000` | Listens on all interfaces on port 8000 |
 
 ### What result do you get?
-- ✅ Django runs at **http://localhost:8000**
+- ✅ Django runs at **http://localhost:3000**
 - ✅ File changes are automatically detected
 - ⏹️ To stop: press `Ctrl + C`
 
@@ -492,7 +492,7 @@ It's an interface where you can manage your website without writing code. It com
 
 In your browser go to:
 ```
-http://localhost:8000/admin/
+http://localhost:3000/admin/
 ```
 
 Log in with:
@@ -764,9 +764,9 @@ urlpatterns = [
 ```
 
 ### 📚 Explanation:
-- `path('', ...)` → Root URL (http://localhost:8000/)
-- `path('template1/', ...)` → URL for template 1 (http://localhost:8000/template1/)
-- `path('template2/', ...)` → URL for template 2 (http://localhost:8000/template2/)
+- `path('', ...)` → Root URL (http://localhost:3000/)
+- `path('template1/', ...)` → URL for template 1 (http://localhost:3000/template1/)
+- `path('template2/', ...)` → URL for template 2 (http://localhost:3000/template2/)
 - And so on with the others...
 
 ### **Important:**
@@ -1608,15 +1608,15 @@ Open Terminal in your `project/` folder and run according to your OS:
 
 **Windows (PowerShell):**
 ```powershell
-docker run -p 8000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-docker run -p 8000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
 ```
 
-**Open your browser and go to:** `http://localhost:8000`
+**Open your browser and go to:** `http://localhost:3000`
 
 ---
 
@@ -1648,7 +1648,7 @@ docker run -p 8000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v
 │     Your PC - Local Development     │
 │ ┌─────────────────────────────────┐ │
 │ │   Django App (Container)        │ │
-│ │   Port 8000:8000                │ │
+│ │   Port 3000:8000                │ │
 │ │                                 │ |
 │ │   Database on PC (SQLite)       | |
 │ │   Danger: Data Loss             │ │
@@ -1666,7 +1666,7 @@ docker run -p 8000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v
 │  ┌────────────┐   ┌─────────────┐   ┌──────────┐       │
 │  │  Django    │◄─►│ PostgreSQL  │   │  Redis   │       │
 │  │    App     │   │   Database  │   │  Cache   │       │
-│  │ :8000      │   │   :5432     │   │  :6379   │       │
+│  │ :3000      │   │   :5432     │   │  :6379   │       │
 │  └────────────┘   └─────────────┘   └──────────┘       │
 │        ▲                  ▲                ▲           │
 │        └──────────────────┼────────────────┘           │
@@ -1733,7 +1733,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "8000:8000"
+      - "3000:8000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1754,7 +1754,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "8000:8000"
+      - "3000:8000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1785,7 +1785,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "8000:8000"
+      - "3000:8000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1805,7 +1805,7 @@ services:
 | `volumes:` | Syncs folders PC ↔ container | Code changes visible instantly (hot-reload) | Data persists when container restarts |
 | `- .:/usr/src/app` | Your PC ↔ /usr/src/app in container | Files synchronized in real time | Same pattern for DB: PostgreSQL saves data in volume |
 | `ports:` | Port mapping | App access from browser | Django:8000, Nginx:80, PostgreSQL:5432, Redis:6379 |
-| `- "8000:8000"` | Port 8000 local ↔ Port 8000 container | `localhost:8000` will open the app | Each service has its own ports |
+| `- "3000:8000"` | Port 3000 local ↔ Port 8000 container | `localhost:3000` will open the app | Each service has its own ports |
 | `environment:` | Environment variables | Configurations, credentials, connections | DATABASE_URL, REDIS_URL, secret keys (next) |
 | `PYTHONUNBUFFERED=1` | Logs in real time without buffer | See errors immediately in terminal | Critical for debugging in production |
 | `PYTHONDONTWRITEBYTECODE=1` | Doesn't create `.pyc` files | Less clutter + smaller volume | Improves sync performance |
@@ -1839,7 +1839,7 @@ docker-compose up
                     ↓
 3️⃣ Creates container: container_project
                     ↓
-4️⃣ Starts Django at http://localhost:8000
+4️⃣ Starts Django at http://localhost:3000
                     ↓
 5️⃣ See logs live in your terminal
 ```
@@ -1858,7 +1858,7 @@ container_project  | Quit the server with CONTROL-C.
 
 ### 🌐 Open Your Browser:
 
-Go to: **http://localhost:8000/**
+Go to: **http://localhost:3000/**
 
 You should see your website working! 
 
@@ -2001,12 +2001,12 @@ docker-compose up --build
 | **Service** | Individual service in docker-compose (in your case: "web") | services: web: |
 | **Template** | HTML file that Django fills with data (dynamic) | templates/home.html |
 | **View** | Python function that processes data and returns a template | web/views.py |
-| **URL** | Web address (http://localhost:8000/) | web/urls.py |
+| **URL** | Web address (http://localhost:3000/) | web/urls.py |
 | **Navbar** | Navigation bar (menu) | templates/header.html |
 | **Responsive** | Adapts to mobile, tablets, desktops | CSS with media queries |
 | **Hot-Reload** | Code changes visible automatically without restart | Volume + PYTHONUNBUFFERED=1 |
 | **Volume** | Folder sync between PC and Docker container | `.:/usr/src/app` in docker-compose.yml |
-| **Port Mapping** | Connection PC port ↔ container port | `-p 8000:8000` |
+| **Port Mapping** | Connection PC port ↔ container port | `-p 3000:8000` |
 | **Environment Variables** | Configurations passed to container | `PYTHONUNBUFFERED=1` |
 | **Versioning** | Version control of the image | `v1.0`, `v2.0`, etc. |
 
