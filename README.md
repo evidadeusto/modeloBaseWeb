@@ -98,12 +98,12 @@ docker-compose up
 ```
 Starting modelobaseweb_web_1 ... done
 Starting modelobaseweb_db_1 ... done
-Starting modelobaseweb on port 8000...
+Starting modelobaseweb on port 3000...
 ```
 
-**Accede a tu sitio:** http://localhost:8000
+**Accede a tu sitio:** http://localhost:3000
 
-**Panel de administración:** http://localhost:8000/admin (usa tus credenciales del superusuario)
+**Panel de administración:** http://localhost:3000/admin (usa tus credenciales del superusuario)
 
 ---
 
@@ -174,7 +174,7 @@ docker-compose up --build
 ```
 
 **Esto levanta automáticamente:**
-- ✅ Servidor Django (puerto 8000)
+- ✅ Servidor Django (puerto 3000)
 - ✅ Base de datos PostgreSQL
 - ✅ Nginx como proxy inverso (puerto 80)
 - ✅ Volúmenes persistentes para datos
