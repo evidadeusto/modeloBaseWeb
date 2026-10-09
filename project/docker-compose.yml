@@ -5,11 +5,11 @@ services:
     build: .
     image: imagen_proyecto:v1.0
     container_name: contenedor_proyecto
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - .:/usr/src/app
     ports:
-      - "3000:8000"
+      - "3000:3000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
