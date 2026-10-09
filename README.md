@@ -130,10 +130,10 @@ main (ESTÁS AQUÍ)
 > R: `template-es` → Español | `template-en` → Inglés. La guía GUIA.MD está en español.
 
 **P: ¿Dónde veo mi sitio web?**
-> R: En `http://localhost:8000`
+> R: En `http://localhost:3000`
 
 **P: ¿Cómo accedo al panel de admin?**
-> R: `http://localhost:8000/admin` (con credenciales del superusuario que creaste)
+> R: `http://localhost:3000/admin` (con credenciales del superusuario que creaste)
 
 **P: ¿Puedo cambiar de Django a otro framework?**
 > R: Este template está optimizado para Django, pero la estructura Docker es reutilizable.
@@ -323,10 +323,10 @@ main (YOU ARE HERE)
 > A: `template-es` → Spanish | `template-en` → English. The guide GUIA.MD is in Spanish, GUIDE.MD is in English.
 
 **Q: Where can I see my website?**
-> A: At `http://localhost:8000`
+> A: At `http://localhost:3000`
 
 **Q: How do I access the admin panel?**
-> A: `http://localhost:8000/admin` (with superuser credentials you created)
+> A: `http://localhost:3000/admin` (with superuser credentials you created)
 
 **Q: Can I switch from Django to another framework?**
 > A: This template is optimized for Django, but the Docker structure is reusable.

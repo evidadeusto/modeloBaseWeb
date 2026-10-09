@@ -129,12 +129,12 @@ We will tell Docker to execute a command inside a container. Django is a framewo
 
 **Windows (PowerShell):**
 ```powershell
-docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app python:3.11-slim sh -c "pip install django && django-admin startproject proyectoDjango ."
+docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app python:3.11-slim sh -c "pip install django && django-admin startproject djangoProject ."
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-docker run --rm -v "$(pwd):/usr/src/app" -w /usr/src/app python:3.11-slim sh -c "pip install django && django-admin startproject proyectoDjango ."
+docker run --rm -v "$(pwd):/usr/src/app" -w /usr/src/app python:3.11-slim sh -c "pip install django && django-admin startproject djangoProject ."
 ```
 
 > **Note about PWD:** `${PWD}` in PowerShell vs `$(pwd)` in Bash. Both mean "current folder". Django creates the same files.
@@ -148,13 +148,13 @@ docker run --rm -v "$(pwd):/usr/src/app" -w /usr/src/app python:3.11-slim sh -c 
 | `-w /usr/src/app` | Works inside that directory |
 | `python:3.11-slim` | Python 3.11 image (lightweight) |
 | `pip install django` | Installs Django |
-| `django-admin startproject proyectoDjango .` | Creates the project called proyectoDjango |
+| `django-admin startproject djangoProject .` | Creates the project called djangoProject |
 
 And this structure is automatically created in your folder:
 ```
 project/
 ├── manage.py
-├── proyectoDjango/
+├── djangoProject/
 │   ├── __init__.py
 │   ├── settings.py
 │   ├── urls.py
@@ -225,9 +225,9 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
 '@ | Out-File -FilePath Dockerfile -Encoding utf8
 ```
 
@@ -253,9 +253,9 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
 EOF
 ```
 
@@ -284,9 +284,9 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
 ```
 
 3. Save the file as `Dockerfile`
@@ -304,8 +304,8 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 | `RUN pip install --no-cache-dir --upgrade pip` | Upgrades pip and avoids caching dependencies - reduces image by ~50-100MB |
 | `RUN pip install --no-cache-dir -r requirements.txt` | Installs dependencies without caching |
 | `COPY . .` | Copies all project code |
-| `EXPOSE 8000` | Opens port 8000 |
-| `CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]` | Command that runs when container starts |
+| `EXPOSE 3000` | Opens port 3000 |
+| `CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]` | Command that runs when container starts |
 
 ---
 
@@ -456,24 +456,24 @@ Your website will be available at `http://localhost:3000` (only on your PC local
 
 **Windows (PowerShell):**
 ```powershell
-docker run -p 3000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:3000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:3000
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:3000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:3000
 ```
 
 ### Command explanation
 | Component | What it does |
 |-----------|----------|
 | `docker run` | Runs a container |
-| `-p 3000:8000` | Maps port 3000 PC → port 8000 container |
+| `-p 3000:3000` | Maps port 3000 PC → port 3000 container |
 | `-v "${PWD}:/usr/src/app"` | Syncs your current folder with `/usr/src/app` |
 | `-w /usr/src/app` | Sets work directory |
 | `image_project:v1.0` | Uses the created image |
 | `python manage.py runserver` | Starts the Django server |
-| `0.0.0.0:8000` | Listens on all interfaces on port 8000 |
+| `0.0.0.0:3000` | Listens on all interfaces on port 3000 |
 
 ### What result do you get?
 - ✅ Django runs at **http://localhost:3000**
@@ -513,7 +513,7 @@ project/
 ├── requirements.txt           ← ✅ STEP 2
 ├── Dockerfile                 ← ✅ STEP 3
 ├── db.sqlite3                 ← ✅ STEP 6 (database)
-└── proyectoDjango/
+└── djangoProject/
     ├── settings.py           ← ✅ STEP 1
     ├── urls.py               ← ✅ STEP 1
     ├── asgi.py               ← ✅ STEP 1
@@ -605,7 +605,7 @@ web/
 
 Django needs to "know" all your apps. If you don't register it, Django ignores it completely.
 
-### ▶️ Edit the file `proyectoDjango/settings.py`
+### ▶️ Edit the file `djangoProject/settings.py`
 
 1. Open the file in VS Code
 2. Find the section called `INSTALLED_APPS` (around line 33)
@@ -783,9 +783,9 @@ urlpatterns = [
 
 This way Django knows it should use the routes from your `web` app.
 
-### ▶️ Edit `proyectoDjango/urls.py`
+### ▶️ Edit `djangoProject/urls.py`
 
-1. Open the file `proyectoDjango/urls.py`
+1. Open the file `djangoProject/urls.py`
 2. Find the current content (should look like this):
 
 ```python
@@ -1586,7 +1586,7 @@ web/templates/home.html  ← Where we have them
 
 **Without this, you'll see: `TemplateDoesNotExist` **
 
-### ▶️ Edit `proyectoDjango/settings.py`
+### ▶️ Edit `djangoProject/settings.py`
 
 Find `'DIRS': [],` and change it to:
 
@@ -1608,12 +1608,12 @@ Open Terminal in your `project/` folder and run according to your OS:
 
 **Windows (PowerShell):**
 ```powershell
-docker run -p 3000:8000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:3000 -v "${PWD}:/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:3000
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:8000
+docker run -p 3000:3000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v1.0 python manage.py runserver 0.0.0.0:3000
 ```
 
 **Open your browser and go to:** `http://localhost:3000`
@@ -1648,7 +1648,7 @@ docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v
 │     Your PC - Local Development     │
 │ ┌─────────────────────────────────┐ │
 │ │   Django App (Container)        │ │
-│ │   Port 3000:8000                │ │
+│ │   Port 3000:3000                │ │
 │ │                                 │ |
 │ │   Database on PC (SQLite)       | |
 │ │   Danger: Data Loss             │ │
@@ -1686,7 +1686,7 @@ docker run -p 3000:8000 -v "$(pwd):/usr/src/app" -w /usr/src/app image_project:v
 Containers communicate with each other automatically:
 - Django accesses PostgreSQL: `postgresql://db:5432/...`
 - Django accesses Redis: `redis://cache:6379/...`
-- Nginx talks with Django: `http://web:8000`
+- Nginx talks with Django: `http://web:3000`
 
 **No IP configuration, no complications. Pure Docker magic.**
 
@@ -1729,11 +1729,11 @@ services:
     build: .
     image: image_project:v1.0
     container_name: container_project
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - .:/usr/src/app
     ports:
-      - "3000:8000"
+      - "3000:3000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1750,11 +1750,11 @@ services:
     build: .
     image: image_project:v1.0
     container_name: container_project
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - .:/usr/src/app
     ports:
-      - "3000:8000"
+      - "3000:3000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1781,11 +1781,11 @@ services:
     build: .
     image: image_project:v1.0
     container_name: container_project
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - .:/usr/src/app
     ports:
-      - "3000:8000"
+      - "3000:3000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -1804,8 +1804,8 @@ services:
 | `command:` | Command to execute on startup | Starts Django automatically | Each service runs its own command |
 | `volumes:` | Syncs folders PC ↔ container | Code changes visible instantly (hot-reload) | Data persists when container restarts |
 | `- .:/usr/src/app` | Your PC ↔ /usr/src/app in container | Files synchronized in real time | Same pattern for DB: PostgreSQL saves data in volume |
-| `ports:` | Port mapping | App access from browser | Django:8000, Nginx:80, PostgreSQL:5432, Redis:6379 |
-| `- "3000:8000"` | Port 3000 local ↔ Port 8000 container | `localhost:3000` will open the app | Each service has its own ports |
+| `ports:` | Port mapping | App access from browser | Django:3000, Nginx:80, PostgreSQL:5432, Redis:6379 |
+| `- "3000:3000"` | Port 3000 local ↔ Port 3000 container | `localhost:3000` will open the app | Each service has its own ports |
 | `environment:` | Environment variables | Configurations, credentials, connections | DATABASE_URL, REDIS_URL, secret keys (next) |
 | `PYTHONUNBUFFERED=1` | Logs in real time without buffer | See errors immediately in terminal | Critical for debugging in production |
 | `PYTHONDONTWRITEBYTECODE=1` | Doesn't create `.pyc` files | Less clutter + smaller volume | Improves sync performance |
@@ -1852,7 +1852,7 @@ In your terminal you'll see something like:
  ✔ Container container_project  Created
 Attaching to container_project
 container_project  | Watching for file changes with StatReloader
-container_project  | Starting development server at http://0.0.0.0:8000/
+container_project  | Starting development server at http://0.0.0.0:3000/
 container_project  | Quit the server with CONTROL-C.
 ```
 
@@ -1989,7 +1989,7 @@ docker-compose up --build
 | **HTML** | Language to create web page structures | templates/base.html |
 | **CSS** | Language to make pages look beautiful | static/css/style.css |
 | **JavaScript** | Language to make pages interactive | static/js/menu.js |
-| **Django** | Python framework (tool) for creating professional websites | proyectoDjango/ |
+| **Django** | Python framework (tool) for creating professional websites | djangoProject/ |
 | **Docker** | Container - packages your application to run on any PC | Dockerfile |
 | **Image** | Docker template/recipe (like an .ISO) | `image_project:v1.0` |
 | **Container** | Instance running the image (like an active virtual machine) | `container_project` |
@@ -2006,7 +2006,7 @@ docker-compose up --build
 | **Responsive** | Adapts to mobile, tablets, desktops | CSS with media queries |
 | **Hot-Reload** | Code changes visible automatically without restart | Volume + PYTHONUNBUFFERED=1 |
 | **Volume** | Folder sync between PC and Docker container | `.:/usr/src/app` in docker-compose.yml |
-| **Port Mapping** | Connection PC port ↔ container port | `-p 3000:8000` |
+| **Port Mapping** | Connection PC port ↔ container port | `-p 3000:3000` |
 | **Environment Variables** | Configurations passed to container | `PYTHONUNBUFFERED=1` |
 | **Versioning** | Version control of the image | `v1.0`, `v2.0`, etc. |
 
